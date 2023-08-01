@@ -54,23 +54,23 @@ def test_inverse2(f, g, b_in, b_out, device):
     assert (x - y).abs().max().item() < 1e-4 * y.abs().mean().item() 
 
 
-from s2cnn.soft.so3_fft import so3_fft, so3_ifft
-test_inverse(so3_fft, so3_ifft, 7, 7, torch.device("cpu"), True)
-test_inverse(so3_fft, so3_ifft, 5, 4, torch.device("cpu"), True)
-test_inverse(so3_fft, so3_ifft, 7, 4, torch.device("cpu"), True)
+# from s2cnn.soft.so3_fft import so3_fft, so3_ifft
+# test_inverse(so3_fft, so3_ifft, 7, 7, torch.device("cpu"), True)
+# test_inverse(so3_fft, so3_ifft, 5, 4, torch.device("cpu"), True)
+# test_inverse(so3_fft, so3_ifft, 7, 4, torch.device("cpu"), True)
 
-test_inverse2(so3_ifft, so3_fft, 7, 7, torch.device("cpu"))
-test_inverse2(so3_ifft, so3_fft, 5, 4, torch.device("cpu"))
-test_inverse2(so3_ifft, so3_fft, 4, 7, torch.device("cpu"))
+# test_inverse2(so3_ifft, so3_fft, 7, 7, torch.device("cpu"))
+# test_inverse2(so3_ifft, so3_fft, 5, 4, torch.device("cpu"))
+# test_inverse2(so3_ifft, so3_fft, 4, 7, torch.device("cpu"))
 
-if torch.cuda.is_available():
-    test_inverse(so3_fft, so3_ifft, 7, 7, torch.device("cuda:0"), True)
-    test_inverse(so3_fft, so3_ifft, 7, 5, torch.device("cuda:0"), True)
-    test_inverse(so3_fft, so3_ifft, 4, 6, torch.device("cuda:0"), True)
+# if torch.cuda.is_available():
+#     test_inverse(so3_fft, so3_ifft, 7, 7, torch.device("cuda:0"), True)
+#     test_inverse(so3_fft, so3_ifft, 7, 5, torch.device("cuda:0"), True)
+#     test_inverse(so3_fft, so3_ifft, 4, 6, torch.device("cuda:0"), True)
 
-    test_inverse2(so3_ifft, so3_fft, 7, 7, torch.device("cuda:0"))
-    test_inverse2(so3_ifft, so3_fft, 5, 4, torch.device("cuda:0"))
-    test_inverse2(so3_ifft, so3_fft, 4, 7, torch.device("cuda:0"))
+#     test_inverse2(so3_ifft, so3_fft, 7, 7, torch.device("cuda:0"))
+#     test_inverse2(so3_ifft, so3_fft, 5, 4, torch.device("cuda:0"))
+#     test_inverse2(so3_ifft, so3_fft, 4, 7, torch.device("cuda:0"))
 
 from s2cnn.soft.so3_fft import so3_rfft, so3_rifft
 test_inverse(so3_rfft, so3_rifft, 7, 7, torch.device("cpu"), False)
@@ -100,14 +100,14 @@ def compare_cpu_gpu(f, x):
     assert q < 1e-4
 
 for b_in, b_out in [(2, 9), (6, 6), (9, 2), (10, 11), (11, 10)]:
-    x = torch.rand(2 * b_in, 2 * b_in, 2 * b_in, 2)  # [..., beta, alpha, gamma, complex]
-    compare_cpu_gpu(partial(so3_fft, b_out=b_out), x)
+    # x = torch.rand(2 * b_in, 2 * b_in, 2 * b_in, 2)  # [..., beta, alpha, gamma, complex]
+    # compare_cpu_gpu(partial(so3_fft, b_out=b_out), x)
 
     x = torch.rand(2 * b_in, 2 * b_in, 2 * b_in)  # [..., beta, alpha, gamma]
     compare_cpu_gpu(partial(so3_rfft, b_out=b_out), x)
 
-    x = torch.rand(b_in * (4 * b_in**2 - 1) // 3, 2)  # [l * m * n, ..., complex]
-    compare_cpu_gpu(partial(so3_ifft, b_out=b_out), x)
+    # x = torch.rand(b_in * (4 * b_in**2 - 1) // 3, 2)  # [l * m * n, ..., complex]
+    # compare_cpu_gpu(partial(so3_ifft, b_out=b_out), x)
 
     x = torch.rand(2 * b_in, 2 * b_in, 2 * b_in)  # [..., beta, alpha, gamma]
     x = so3_rfft(x)

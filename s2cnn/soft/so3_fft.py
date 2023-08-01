@@ -34,7 +34,9 @@ def so3_fft(x, for_grad=False, b_out=None):
 
     wigner = _setup_wigner(b_in, nl=b_out, weighted=not for_grad, device=x.device)  # [beta, l * m * n]
 
-    x = torch.fft(x, 2)  # [batch, beta, m, n, complex]
+    # x = torch.fft(x, 2)  # [batch, beta, m, n, complex]
+    x = torch.fft.fft2(x)  # [batch, beta, m, n, complex]
+    x = torch.view_as_real(x)
 
     output = x.new_empty((nspec, nbatch, 2))
     if x.is_cuda and x.dtype == torch.float32:
