@@ -16,12 +16,12 @@ You need to set the path to your local nvrtc (for cuda 11.1) using an environmen
 
 `NVRTC_DLL="C:\ProgramData\Miniconda3\envs\cuda11\Lib\site-packages\torch\lib\nvrtc64_111_0.dll"`
 
-This is hardcoded in pynvrtc so you need to change it:
+On Windows, the DLL name is hardcoded into the library, and depends on the cuda version.
+Change the following line in pynvrtc:
 
-`C:\ProgramData\Miniconda3\envs\cuda11\Lib\site-packages\pynvrtc\interface.py`
-Line 95:
+`C:\ProgramData\Miniconda3\envs\cuda11\Lib\site-packages\pynvrtc\interface.py`,
+Line 96:
 ```python
-if system() == 'Windows':
     def_lib_name = 'nvrtc64_111_0.dll'
 ```
 
