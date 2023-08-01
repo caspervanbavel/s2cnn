@@ -4,7 +4,6 @@ import torch
 import torch.cuda
 from string import Template
 from s2cnn.utils.decorator import cached_dirpklgz
-import torch.fft
 
 
 # inspired by https://gist.github.com/szagoruyko/89f83b6f5f4833d3c8adf81ee49f22a8
@@ -36,7 +35,9 @@ def s2_fft(x, for_grad=False, b_out=None):
     wigner = _setup_wigner(b_in, nl=b_out, weighted=not for_grad, device=x.device)
     wigner = wigner.view(2 * b_in, -1)  # [beta, l * m] (2 * b_in, nspec)
 
-    x = torch.view_as_real(torch.fft.fft(torch.view_as_complex(x)))  # [batch, beta, m, complex]
+    x = torch.view_as_complex(x)
+    x = torch.fft.fft(x)
+    x = torch.view_as_real(x)  # [batch, beta, m, complex]
 
     output = x.new_empty((nspec, nbatch, 2))
     if x.is_cuda and x.dtype == torch.float32:
@@ -101,7 +102,10 @@ def s2_ifft(x, for_grad=False, b_out=None):
             if l > 0:
                 output[:, :, -l:] += out[:, :, :l]
 
-    output = torch.view_as_real(torch.fft.ifft(torch.view_as_complex(output))) * output.size(-2)  # [batch, beta, alpha, complex]
+    output = torch.view_as_complex(output)
+    output = torch.fft.ifft(output)
+    output = torch.view_as_real(output)
+    output = output * output.size(-2)  # [batch, beta, alpha, complex]
     output = output.view(*batch_size, 2 * b_out, 2 * b_out, 2)
     return output
 
