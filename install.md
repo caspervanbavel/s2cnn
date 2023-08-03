@@ -55,3 +55,16 @@ Finally, to install s2cnn locally, run:
 ```bash
 python setup.py install
 ```
+
+## Running example
+
+Running the MNSIT example with non-rotated train and rotated test set:
+
+```bash
+cd examples/mnist
+python gendata.py --no_rotate_train
+python run.py
+```
+
+This example is small enough to run on a laptop. After about 30 minutes I get a test  accuracy of about 95%.
+
