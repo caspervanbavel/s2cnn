@@ -1,5 +1,4 @@
 # pylint: disable=E1101,R,C
-import numpy as np
 import torch.nn as nn
 from s2cnn import SO3Convolution
 from s2cnn import S2Convolution
