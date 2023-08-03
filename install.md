@@ -44,10 +44,12 @@ However this time, for some reason the dll is called `nvrtc64_112_0.dll` (despit
 
 ## Testing
 
-Now everything should work. Run the tests to check:
+Now everything should work. Cd to `s2cnn` and run the tests to check:
 ```bash
 python -m tests.so3_fft
 ```
+
+If this  runs without raising an exception you are all good.
 
 Finally, to install s2cnn locally, run:
 ```bash

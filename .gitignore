@@ -5,3 +5,5 @@ build
 dist
 *cache
 notes.md
+*.gz
+*-ubyte
