@@ -1,5 +1,3 @@
-:warning: :warning: This code is old and does not support the last versions of pytorch! Especially since the change in the fft interface. :warning: :warning: 
-
 # Spherical CNNs
 ## Equivariant CNNs for the sphere and SO(3) implemented in PyTorch
 
