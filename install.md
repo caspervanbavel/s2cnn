@@ -34,13 +34,21 @@ conda install pytorch torchvision torchaudio pytorch-cuda=11.7 -c pytorch -c nvi
 pip install cupy-cuda11x
 pip install nvidia-cuda-nvrtc-cu11==11.7.99s
 pip install pynvrtc==9.2
-pip install pip install --no-use-pep517 git+https://github.com/caspervanbavel/lie_learn.git
+pip install --no-use-pep517 git+https://github.com/caspervanbavel/lie_learn.git
 ```
 
 You have to do the same patching here with pynvrtc. 
 However this time, for some reason the dll is called `nvrtc64_112_0.dll` (despite being version 11.7) and was located in
 
 `C:\ProgramData\Miniconda3\envs\pytorch\Lib\site-packages\nvidia\cuda_nvrtc\bin`.
+
+## Pytorch 2.0 CPU (for MacOS)
+```bash
+conda create --name pytorch_cpu python=3.8.10
+conda activate pytorch_cpu
+pip3 install torch torchvision torchaudio
+pip install --no-use-pep517 git+https://github.com/caspervanbavel/lie_learn.git
+```
 
 ## Testing
 
@@ -67,4 +75,4 @@ python run.py
 ```
 
 This example is small enough to run on a laptop. After about 30 minutes I get a test  accuracy of about 95%.
-
+On cpu-only, it still works but is slower by a factor ~20.
