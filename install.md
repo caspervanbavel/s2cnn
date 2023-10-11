@@ -66,7 +66,7 @@ python setup.py install
 
 ## Running example
 
-Running the MNSIT example with non-rotated train and rotated test set:
+Running the MNIST example with non-rotated train and rotated test set:
 
 ```bash
 cd examples/mnist
